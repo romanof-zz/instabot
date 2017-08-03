@@ -27,7 +27,7 @@ def scroll_followers count
     new_list.each do |e|
       follower = e.attribute("href").to_s[26..-2]
       puts follower
-      create_new_follower follower
+      count+=1 if create_new_follower follower
     end
 
     driver.action
@@ -42,5 +42,5 @@ def scroll_followers count
 
   # /items/item[position() >= last() - 2] selects the last three item elements
   puts "count: #{count}"
-  scroll_followers count + new_list.count
+  scroll_followers count
 end

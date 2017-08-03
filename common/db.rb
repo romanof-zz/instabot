@@ -17,7 +17,9 @@ end
 def create_new_follower follower, ignore_dups=true
   begin
     db.query("insert into followers values ('#{follower}', NULL, 'new')")
+    true
   rescue Mysql2::Error
     raise if !ignore_dups
+    false
   end
 end
