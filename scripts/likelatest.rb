@@ -14,7 +14,7 @@ def likelatest user
     Selenium::WebDriver::Wait.new(timeout: 60).until do
       header_link = driver.find_element(xpath: "//article[#{i+1}]//header/div/a")
     end
-    
+
     follower = ref_to_name header_link.attribute("href")
     print "#{i}. #{follower} - "
 
