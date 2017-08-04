@@ -21,4 +21,6 @@ def set_follower_types
       update_follower_type name, type
     end
   end
+
+  driver.close
 end
