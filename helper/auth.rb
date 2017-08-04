@@ -2,6 +2,10 @@
 require_relative "../common/config"
 require_relative "../common/selenium"
 
+def ref_to_name ref
+  ref.to_s[26..-2]
+end
+
 def login user
   driver.navigate.to "https://www.instagram.com/accounts/login/"
 

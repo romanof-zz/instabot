@@ -2,7 +2,7 @@
 *.pem
 *.txt
 *.yml
+*.log
 Gemfile.lock
 .bundle
 vendor
-chromedriver*

@@ -25,7 +25,7 @@ def scroll_followers count
     end
 
     new_list.each do |e|
-      follower = e.attribute("href").to_s[26..-2]
+      follower = ref_to_name e.attribute("href")
       puts follower
       count+=1 if create_new_follower follower
     end
