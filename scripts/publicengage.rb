@@ -18,7 +18,7 @@ def publicengage user, lang
 
   get_public_non_engaged(user, 1).each do |record|
     # name = record["name"]
-    name = "yulyassana"
+    name = "roman0f"
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
 
