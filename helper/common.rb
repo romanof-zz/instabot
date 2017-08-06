@@ -23,13 +23,13 @@ def login user
   submit = driver.find_element(xpath: '//form//button')
   submit.submit
 
-  Selenium::WebDriver::Wait.new(timeout: 360).until { @driver.find_element id: "mainFeed" }
+  Selenium::WebDriver::Wait.new(timeout: 60).until { @driver.find_element id: "mainFeed" }
 
   puts "Logged in as #{user}!"
 end
 
 def scroll_user_list count, limit, &block
-  return if !limit.nil? && count == limit
+  return if !limit.nil? && count.to_i >= limit.to_i
 
   begin
     new_list = nil
@@ -39,13 +39,12 @@ def scroll_user_list count, limit, &block
 
     new_list.each do |e|
       name = ref_to_name e.attribute("href")
-      puts name
       count+=1 if block.call(name)
     end
 
     driver.action
       .click_and_hold(new_list.last)
-      .move_to(new_list.first)
+      .move_to(new_list[10])
       .release.perform
 
   rescue Selenium::WebDriver::Error::StaleElementReferenceError
@@ -53,6 +52,6 @@ def scroll_user_list count, limit, &block
     sleep 1
   end
 
-  puts "count: #{count}"
-  scroll_user_list count, block, limit
+  puts "count: #{count}, limit: #{limit}"
+  scroll_user_list count, limit, &block
 end

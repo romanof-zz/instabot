@@ -13,7 +13,7 @@ when :getfollowers
 when :settypes
   set_follower_types
 when :unfollow
-  unfollow options[:username], options[:followers], options[:follwing]
+  unfollow options[:username], options[:followers], options[:following]
 else
   puts 'unknown operation'
 end

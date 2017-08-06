@@ -9,29 +9,37 @@ def unfollow user, followers_count, following_count
   driver.navigate.to "https://www.instagram.com/#{user}/"
 
   Selenium::WebDriver::Wait.new(timeout: 20).until {
-    driver.find_element(xpath: "//a[@href=\"/#{name}/followers/\"]").click
+    driver.find_element(xpath: "//main//header//button//img")
   }
+  driver.find_element(xpath: "//a[@href=\"/#{user}/followers/\"]").click
   sleep 1
 
   followers = []
   scroll_user_list(0, followers_count) { |name|
-    return followers.push name if !followers.include? name
-    false
+    incl = !followers.include?(name)
+    followers.push name if incl
+    incl
   }
 
   driver.find_element(xpath: "//button[text()=\"Close\"]").click
-  sleep 1
   Selenium::WebDriver::Wait.new(timeout: 20).until {
-    driver.find_element(xpath: "//a[@href=\"/#{name}/followers/\"]").click
+    driver.find_element(xpath: "//main//header//button//img")
   }
+  driver.find_element(xpath: "//a[@href=\"/#{user}/following/\"]").click
   sleep 1
 
+  following = []
   scroll_user_list(0, following_count) { |name|
-    puts name if followers.include? name
-    true
+    incl = !following.include?(name)
+    following.push name if incl
+    incl
   }
 
   driver.find_element(xpath: "//button[text()=\"Close\"]").click
+
+  following.each do |name|
+    puts name if !followers.include?(name)
+  end
 
   driver.close
 end
