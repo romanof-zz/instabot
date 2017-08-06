@@ -21,6 +21,9 @@ def options
       opts.on('-g [ARG]', '--following [ARG]', "") do |v|
         @hash_options[:following] = v
       end
+      opts.on('-l [ARG]', '--lang [ARG]', "") do |v|
+        @hash_options[:lang] = v
+      end
       opts.on('-h', '--help', 'Display this help') do
         puts opts
         exit
