@@ -39,7 +39,7 @@ def publicengage user, lang
     puts links.inspect
 
     links.each do |link|
-      driver.navigate.to "https://www.instagram.com/#{link}"
+      driver.navigate.to link
 
       like = nil
       Selenium::WebDriver::Wait.new(timeout: 60).until {
