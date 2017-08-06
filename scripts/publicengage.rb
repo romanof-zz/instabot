@@ -6,8 +6,8 @@ require_relative "../helper/common"
 def comment lang, num
   if @comments.nil?
     @comments = {
-      :eng => ["nice pic!","awesome!!!"],
-      :rus => ["круто!","прикольно!"]
+      :eng => ["nice pic!","awesome!!!","great pic!"],
+      :rus => ["круто!","прикольно!","класс!"]
     }
   end
   @comments[lang.to_sym][num]
@@ -16,29 +16,25 @@ end
 def publicengage user, lang
   login user
 
-  get_public_non_engaged(user, 1).each do |record|
-    # name = record["name"]
-    name = "0lga.karavaeva"
+  get_public_non_engaged(user, 10).each do |record|
+    name = record["name"]
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
 
-    random = rand(2..10)
+    random = rand(2..8)
 
-    puts "getting photos"
     photos = nil
     Selenium::WebDriver::Wait.new(timeout: 26).until {
       photos = driver.find_elements(xpath: "//main//article/div//a[//img]")
     }
-    puts "photos count: #{photos.count}"
 
     links = []
     links.push photos[0].attribute("href").to_s if !photos[0].nil?
     links.push photos[1].attribute("href").to_s if !photos[1].nil?
     links.push photos[random].attribute("href").to_s if !photos[random].nil?
 
-    puts links.inspect
-
     links.each do |link|
+      puts link
       driver.navigate.to link
 
       like = nil
@@ -49,7 +45,7 @@ def publicengage user, lang
     end
 
     text = driver.find_element(xpath: "//form/textarea")
-    text.send_keys comment(lang, rand(0..1))
+    text.send_keys comment(lang, rand(0..2))
     text.submit
 
     record_public_engagement user, name
