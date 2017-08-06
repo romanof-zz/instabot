@@ -44,9 +44,12 @@ def publicengage user, lang
       like.click unless like.nil?
     end
 
-    text = driver.find_element(xpath: "//form/textarea")
-    text.send_keys comment(lang, rand(0..2))
-    text.submit
+    begin
+      text = driver.find_element(xpath: "//form/textarea")
+      text.send_keys comment(lang, rand(0..2))
+      text.submit
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+    end
 
     record_public_engagement user, name
   end
