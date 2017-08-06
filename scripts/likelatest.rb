@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 require_relative "../common/selenium"
-require_relative "../helper/auth"
+require_relative "../helper/common"
 
 def likelatest user
   login user
