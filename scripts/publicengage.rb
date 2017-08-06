@@ -22,7 +22,7 @@ def publicengage user, lang
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
 
-    random = rand[2..10]
+    random = rand(2..10)
 
     photos = nil
     Selenium::WebDriver::Wait.new(timeout: 26).until {
@@ -45,7 +45,7 @@ def publicengage user, lang
     end
 
     text = driver.find_element(xpath: "//form/textarea")
-    text.send_keys comment(lang, rand[0..comments.size-1])
+    text.send_keys comment(lang, rand(0..comments.size-1))
     text.submit
 
     record_public_engagement user, name
