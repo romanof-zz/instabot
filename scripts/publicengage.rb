@@ -6,7 +6,7 @@ require_relative "../helper/common"
 def comment lang, num
   if @comments.nil?
     @comments = {
-      :eng => ["nice pic!","looks cool!", "awesome!!!", "great shot!"],
+      :eng => ["nice pic!","awesome!!!"],
       :rus => ["круто!","прикольно!"]
     }
   end
@@ -49,7 +49,7 @@ def publicengage user, lang
     end
 
     text = driver.find_element(xpath: "//form/textarea")
-    text.send_keys comment(lang, rand(0..comments.size-1))
+    text.send_keys comment(lang, rand(0..1))
     text.submit
 
     record_public_engagement user, name
