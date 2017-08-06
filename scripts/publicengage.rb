@@ -36,7 +36,7 @@ def publicengage user, lang
     links.push photos[1].attribute("href").to_s if !photos[1].nil?
     links.push photos[random].attribute("href").to_s if !photos[random].nil?
 
-    puts likes.inspect
+    puts links.inspect
 
     links.each do |link|
       driver.navigate.to "https://www.instagram.com/#{link}"
