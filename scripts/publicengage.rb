@@ -7,7 +7,7 @@ def comment lang, num
   if @comments.nil?
     @comments = {
       :eng => ["nice pic!","looks cool!", "awesome!!!", "great shot!"],
-      :rus => ["тест","буууу"]
+      :rus => ["круто!","прикольно!"]
     }
   end
   @comments[lang.to_sym][num]
@@ -18,24 +18,28 @@ def publicengage user, lang
 
   get_public_non_engaged(user, 1).each do |record|
     # name = record["name"]
-    name = "roman0f"
+    name = "0lga.karavaeva"
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
 
     random = rand(2..10)
 
+    puts "getting photos"
     photos = nil
     Selenium::WebDriver::Wait.new(timeout: 26).until {
       photos = driver.find_elements(xpath: "//main//article/div//a[//img]")
     }
+    puts "photos count: #{photos.count}"
 
     links = []
     links.push photos[0].attribute("href").to_s if !photos[0].nil?
     links.push photos[1].attribute("href").to_s if !photos[1].nil?
     links.push photos[random].attribute("href").to_s if !photos[random].nil?
 
+    puts likes.inspect
+
     links.each do |link|
-      driver.navigate.to "https://www.instagram.com#{link}"
+      driver.navigate.to "https://www.instagram.com/#{link}"
 
       like = nil
       Selenium::WebDriver::Wait.new(timeout: 60).until {
