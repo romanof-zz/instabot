@@ -25,7 +25,15 @@ def get_public_non_engaged user, limit
 end
 
 def record_public_engagement user, name
-  db.query("insert into engagement(user,follower,type,time) values('#{user}','#{name}','pb.v1',NOW())")
+  record_engagement user, name, 'pb.v1'
+end
+
+def record_engagement user, name, type
+  db.query("insert into engagement(user,follower,type,time) values('#{user}','#{name}','#{type}',NOW())")
+end
+
+def get_engagement user, name
+  db.query("select * from engagement where user='#{user}' and follower='#{name}'")
 end
 
 def get_untyped_followers limit

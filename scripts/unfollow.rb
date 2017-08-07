@@ -17,7 +17,10 @@ def unfollow user, followers_count, following_count
   followers = []
   scroll_user_list(0, followers_count) { |name|
     incl = !followers.include?(name)
-    followers.push name if incl
+    if incl
+      followers.push name
+      record_engagement(user, name, "orig.fl") unless get_engagement(user, name).count
+    end
     incl
   }
 

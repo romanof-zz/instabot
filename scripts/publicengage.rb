@@ -39,7 +39,10 @@ def publicengage user, lang
 
       like = nil
       Selenium::WebDriver::Wait.new(timeout: 60).until {
-        like = driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]")
+        begin
+          like = driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]")
+        rescue Selenium::WebDriver::Error::NoSuchElementError
+        end
       }
       like.click unless like.nil?
     end
