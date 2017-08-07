@@ -19,7 +19,7 @@ def unfollow user, followers_count, following_count
     incl = !followers.include?(name)
     if incl
       followers.push name
-      record_engagement(user, name, "orig.fl") unless get_engagement(user, name).count
+      record_engagement(user, name, "orig.fl") unless get_engagement(user, name).count > 0
     end
     incl
   }
