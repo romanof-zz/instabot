@@ -16,7 +16,7 @@ end
 def publicengage user, lang
   login user
 
-  get_public_non_engaged(user, 10).each do |record|
+  get_public_non_engaged(user, 5).each do |record|
     name = record["name"]
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
