@@ -37,14 +37,12 @@ def publicengage user, lang
       puts link
       driver.navigate.to link
 
-      like = nil
-      Selenium::WebDriver::Wait.new(timeout: 60).until {
-        begin
-          like = driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]")
-        rescue Selenium::WebDriver::Error::NoSuchElementError
-        end
-      }
-      like.click unless like.nil?
+      Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element(xpath: "//main//article//img") }
+
+      begin
+        driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
+      rescue Selenium::WebDriver::Error::NoSuchElementError
+      end
     end
 
     begin
