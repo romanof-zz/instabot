@@ -45,14 +45,17 @@ def publicengage user, lang
       end
     end
 
-    begin
-      Selenium::WebDriver::Wait.new(timeout: 60).until {
-        text = driver.find_element(xpath: "//form/textarea")
+      text = nil
+      begin
+        Selenium::WebDriver::Wait.new(timeout: 60).until {
+          text = driver.find_element(xpath: "//form/textarea")
+        }
+      rescue  Selenium::WebDriver::Error::TimeOutError
+      end
+      unless text.nil?
         text.send_keys comment(lang, rand(0..2))
         text.submit
-      }
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::TimeOutError
-    end
+      end
 
     record_public_engagement user, name
   end
