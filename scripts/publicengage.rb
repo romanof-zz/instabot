@@ -29,11 +29,15 @@ def publicengage user, lang
     links = []
     photos.first(9).each do |photo|
       photo.click
-      likes_num = nil
-      Selenium::WebDriver::Wait.new(timeout: 20).until {
-        likes_num = driver.find_element xpath: "//section/div/span/span"
-      }
-      links << { :num => likes_num.text.to_i, :link => photo.attribute("href").to_s }
+      likes_num = 0
+      begin
+        Selenium::WebDriver::Wait.new(timeout: 20).until {
+          elem = driver.find_element xpath: "//section/div/span/span"
+          likes_num = elem.text.to_i
+        }
+      rescue Selenium::WebDriver::Error::TimeOutError
+      end
+      links << { :num => likes_num, :link => photo.attribute("href").to_s }
       driver.find_element(xpath: "//button[text()=\"Close\"]").click
     end
     links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
