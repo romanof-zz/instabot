@@ -31,7 +31,7 @@ def publicengage user, lang
       photo.click
       likes_num = 0
       begin
-        Selenium::WebDriver::Wait.new(timeout: 5).until {
+        Selenium::WebDriver::Wait.new(timeout: 2).until {
           likes_num = driver.find_element(xpath: "//section/div/span/span").text.to_i
         }
       rescue Selenium::WebDriver::Error::TimeOutError
