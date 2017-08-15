@@ -21,17 +21,23 @@ def publicengage user, lang
 
     driver.navigate.to "https://www.instagram.com/#{name}/"
 
-    random = rand(2..8)
-
     photos = nil
-    Selenium::WebDriver::Wait.new(timeout: 26).until {
+    Selenium::WebDriver::Wait.new(timeout: 20).until {
       photos = driver.find_elements(xpath: "//main//article/div//a[//img]")
     }
 
     links = []
-    links.push photos[0].attribute("href").to_s if !photos[0].nil?
-    links.push photos[1].attribute("href").to_s if !photos[1].nil?
-    links.push photos[random].attribute("href").to_s if !photos[random].nil?
+    photos.first(9).each do |photo|
+      photo.click
+      likes_num = nil
+      Selenium::WebDriver::Wait.new(timeout: 20).until {
+        likes_num = driver.find_element xpath: "//section/div/span/span"
+      }
+      links << { :num => likes_num.text.to_i, :link => photo.attribute("href").to_s }
+      driver.find_element(xpath: "//button[text()=\"Close\"]").click
+    end
+    links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
+    links = links.first(3).reverse.map! {|l| l[:link]}
 
     links.each do |link|
       puts link
