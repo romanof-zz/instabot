@@ -16,7 +16,7 @@ when :settypes
 when :unfollow
   unfollow options[:username]
 when :publicengage
-  publicengage options[:username], options[:lang]
+  publicengage options[:username]
 else
   puts 'unknown operation'
 end

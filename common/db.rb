@@ -15,7 +15,7 @@ def db
 end
 
 def get_public_non_engaged user, limit
-  db.query("select f.name
+  db.query("select f.name, f.lang
             from followers as f
             left join engagement as e on e.follower = f.name and e.user = '#{user}'
             where e.id IS NULL and

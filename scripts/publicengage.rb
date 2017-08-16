@@ -6,14 +6,13 @@ require_relative "../helper/common"
 def comment lang, num
   if @comments.nil?
     @comments = {
-      :rus => ["круто!","прикольно!","класс!","отличный кадр!","здорово!","ухты!","кайф!","вау!","ммм!"],
-      :crazy => ["юпитер!","васильковый ягупоп!","лавандаааа, горная лаванда...","звезда летит, загадывай желание!","кря","ляпотааа","что же делать?!","уиииииии"]
+      :rus => ["круто!","прикольно!","класс!","отличный кадр!","здорово!","ухты!","кайф!","вау!","ммм!"]
     }
   end
   @comments[lang.to_sym][num]
 end
 
-def publicengage user, lang
+def publicengage user
   login user
 
   get_public_non_engaged(user, 5).each do |record|
@@ -67,7 +66,7 @@ def publicengage user, lang
       rescue  Selenium::WebDriver::Error::TimeOutError
       end
       unless text.nil?
-        text.send_keys comment(lang, rand(0..8))
+        text.send_keys comment(record["lang"], rand(0..8))
         text.submit
       end
 
