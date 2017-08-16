@@ -37,7 +37,12 @@ def publicengage user, lang
       rescue Selenium::WebDriver::Error::TimeOutError
       end
       links << { :num => likes_num, :link => photo.attribute("href").to_s }
-      driver.find_element(xpath: "//button[text()=\"Close\"]").click
+      begin
+        Selenium::WebDriver::Wait.new(timeout: 2).until {
+          driver.find_element(xpath: "//button[text()=\"Close\"]").click
+        }
+      rescue Selenium::WebDriver::Error::TimeOutError
+      end
     end
     links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
     links = links.first(3).reverse.map! {|l| l[:link]}

@@ -12,7 +12,7 @@ def likelatest user
 
     header_link = nil
     Selenium::WebDriver::Wait.new(timeout: 60).until do
-      header_link = driver.find_element(xpath: "//article[#{i+1}]//header/div/a")
+      header_link = driver.find_element(xpath: "//article[#{i+1}]/header/a")
     end
 
     follower = ref_to_name header_link.attribute("href")
