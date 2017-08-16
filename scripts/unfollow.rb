@@ -3,7 +3,7 @@ require_relative "../common/selenium"
 require_relative "../common/db"
 require_relative "../helper/common"
 
-def unfollow user, followers_count, following_count
+def unfollow user
   login user
 
   driver.navigate.to "https://www.instagram.com/#{user}/"
@@ -11,6 +11,7 @@ def unfollow user, followers_count, following_count
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
+  followers_count = driver.find_element(xpath: "//a[@href=\"/#{user}/followers/\"]/span").text.to_i
   driver.find_element(xpath: "//a[@href=\"/#{user}/followers/\"]").click
   sleep 1
 
@@ -28,6 +29,7 @@ def unfollow user, followers_count, following_count
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
+  following_count = driver.find_element(xpath: "//a[@href=\"/#{user}/following/\"]/span").text.to_i
   driver.find_element(xpath: "//a[@href=\"/#{user}/following/\"]").click
   sleep 1
 
@@ -38,10 +40,13 @@ def unfollow user, followers_count, following_count
     incl
   }
 
-  driver.find_element(xpath: "//button[text()=\"Close\"]").click
+  removelist = []
+  following.each { |name| removelist.push name if !followers.include?(name) }
+  removelist.reverse!
 
-  following.each do |name|
-    puts name if !followers.include?(name)
+  removelist.first(15).each do |name|
+    puts name
+    driver.find_element(xpath: "//ul/li[contains(.,\"#{name}\")]//button").click
   end
 
   driver.close

@@ -6,7 +6,6 @@ require_relative 'scripts/likelatest'
 require_relative 'scripts/unfollow'
 require_relative 'scripts/publicengage'
 
-
 case options[:operation].to_sym
 when :likelatest
   likelatest options[:username]
@@ -15,7 +14,7 @@ when :getfollowers
 when :settypes
   set_follower_types
 when :unfollow
-  unfollow options[:username], options[:followers], options[:following]
+  unfollow options[:username]
 when :publicengage
   publicengage options[:username], options[:lang]
 else

@@ -15,12 +15,6 @@ def options
       opts.on('-s [ARG]', '--sourceAccount [ARG]', "") do |v|
         @hash_options[:source_account] = v
       end
-      opts.on('-r [ARG]', '--followers [ARG]', "") do |v|
-        @hash_options[:followers] = v
-      end
-      opts.on('-g [ARG]', '--following [ARG]', "") do |v|
-        @hash_options[:following] = v
-      end
       opts.on('-l [ARG]', '--lang [ARG]', "") do |v|
         @hash_options[:lang] = v
       end
