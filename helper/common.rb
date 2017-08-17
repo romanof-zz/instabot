@@ -33,8 +33,10 @@ def login user
   puts "Logged in as #{user}!"
 end
 
-def scroll_user_list count, limit, &block
+def scroll_user_list count, error, limit, &block
   return if !limit.nil? && count.to_i >= limit.to_i
+
+  original_count = count
 
   begin
     new_list = nil
@@ -57,6 +59,14 @@ def scroll_user_list count, limit, &block
     sleep 1
   end
 
+  if count == original_count
+    error += 1
+    sleep error
+    die("srolling failed") if error > 30
+  else
+    error = 0
+  end
+
   puts "count: #{count}, limit: #{limit}"
-  scroll_user_list count, limit, &block
+  scroll_user_list count, error, limit, &block
 end

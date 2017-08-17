@@ -17,7 +17,7 @@ def unfollow user
   sleep 1
 
   followers = []
-  scroll_user_list(0, followers_count) { |name|
+  scroll_user_list(0, 0, followers_count) { |name|
     incl = !followers.include?(name)
     if incl
       followers.push name
