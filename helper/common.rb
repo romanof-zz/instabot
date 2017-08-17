@@ -41,7 +41,7 @@ def scroll_user_list count, error, limit, &block
 
   begin
     new_list = nil
-    Selenium::WebDriver::Wait.new(timeout: 20 ).until do
+    Selenium::WebDriver::Wait.new(timeout: 20).until do
       new_list = driver.find_elements(xpath: "//ul/li[position() >= last()-20]/div/div/a")
     end
 
