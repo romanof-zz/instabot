@@ -1,0 +1,4 @@
+*/15 * * * *   cd /home/ubuntu/instabot && sh rrunner.sh
+5 * * * *      cd /home/ubuntu/instabot && sh rexec.sh --operation=settypes >> app.settypes.log 2>&1
+20 1,2,3 * * * cd /home/ubuntu/instabot && sh rexec.sh --operation=unfollow --asUser=roman0f >> app.unfollow.roman0f.log 2>&1
+25 1,2,3 * * * cd /home/ubuntu/instabot && sh rexec.sh --operation=unfollow --asUser=yulyassana >> app.unfollow.yulyassana.log 2>&1

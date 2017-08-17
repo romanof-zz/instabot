@@ -48,7 +48,11 @@ def publicengage user
 
     links.each do |link|
       puts link
-      driver.navigate.to link
+      begin
+        driver.navigate.to link
+      rescue Net::ReadTimeout
+        next
+      end
 
       Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element(xpath: "//main//article//img") }
 
@@ -58,17 +62,17 @@ def publicengage user
       end
     end
 
-      text = nil
-      begin
-        Selenium::WebDriver::Wait.new(timeout: 60).until {
-          text = driver.find_element(xpath: "//form/textarea")
-        }
-      rescue  Selenium::WebDriver::Error::TimeOutError
-      end
-      unless text.nil?
-        text.send_keys comment(record["lang"], rand(0..8))
-        text.submit
-      end
+    text = nil
+    begin
+      Selenium::WebDriver::Wait.new(timeout: 60).until {
+        text = driver.find_element(xpath: "//form/textarea")
+      }
+    rescue  Selenium::WebDriver::Error::TimeOutError
+    end
+    unless text.nil?
+      text.send_keys comment(record["lang"], rand(0..8))
+      text.submit
+    end
 
     record_public_engagement user, name
   end
