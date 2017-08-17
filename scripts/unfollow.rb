@@ -11,7 +11,7 @@ def unfollow user
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
-  followers_count = driver.find_element(xpath: "//a[@href=\"/#{user}/followers/\"]/span")
+  followers_count = driver.find_element(xpath: "//a[contains(@href, 'followers')]/span")
     .text.delete!(",").to_i
   driver.find_element(xpath: "//a[@href=\"/#{user}/followers/\"]").click
   sleep 1
@@ -30,7 +30,7 @@ def unfollow user
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
-  following_count = driver.find_element(xpath: "//a[@href=\"/#{user}/following/\"]/span")
+  following_count = driver.find_element(xpath: "//a[contains(@href, 'following')]/span")
     .text.delete!(",").to_i
   driver.find_element(xpath: "//a[@href=\"/#{user}/following/\"]").click
   sleep 1
