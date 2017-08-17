@@ -12,7 +12,7 @@ def getfollowers user, source_account
   driver.find_element(xpath: "//a[@href=\"/#{source_account}/followers/\"]").click
   sleep 1
 
-  scroll_user_list(0, 0, nil) { |name| create_new_follower(name, source_account, 'travel') }
+  scroll_user_list(0, 0, nil) { |name| create_new_follower(name, source_account, 'travel', 'rus') }
 
   driver.close
 end

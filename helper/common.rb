@@ -62,7 +62,7 @@ def scroll_user_list count, error, limit, &block
   if count == original_count
     error += 1
     sleep error
-    die("srolling failed") if error > 30
+    die("srolling failed") if error > 15
   else
     error = 0
   end

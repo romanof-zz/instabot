@@ -44,9 +44,9 @@ def update_follower_type name, type
   db.query("update followers set type=\"#{type}\", status=\"typed\" where name=\"#{name}\"")
 end
 
-def create_new_follower follower, source, category, ignore_dups=true
+def create_new_follower follower, source, category, lang, ignore_dups=true
   begin
-    db.query("insert into followers values ('#{follower}', NULL, 'new', '#{source}', '#{category}')")
+    db.query("insert into followers values ('#{follower}', NULL, 'new', '#{source}', '#{category}', '#{lang}')")
     true
   rescue Mysql2::Error
     raise if !ignore_dups
