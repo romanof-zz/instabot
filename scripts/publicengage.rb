@@ -33,14 +33,14 @@ def publicengage user
         Selenium::WebDriver::Wait.new(timeout: 2).until {
           likes_num = driver.find_element(xpath: "//section/div/span/span").text.to_i
         }
-      rescue Selenium::WebDriver::Error::TimeOutError
+      rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
       end
       links << { :num => likes_num, :link => photo.attribute("href").to_s }
       begin
         Selenium::WebDriver::Wait.new(timeout: 2).until {
           driver.find_element(xpath: "//button[text()=\"Close\"]").click
         }
-      rescue Selenium::WebDriver::Error::TimeOutError
+      rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
       end
     end
     links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }

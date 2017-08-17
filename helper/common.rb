@@ -23,7 +23,12 @@ def login user
   submit = driver.find_element(xpath: '//form//button')
   submit.submit
 
-  Selenium::WebDriver::Wait.new(timeout: 60).until { @driver.find_element id: "mainFeed" }
+  begin
+    Selenium::WebDriver::Wait.new(timeout: 60).until { @driver.find_element id: "mainFeed" }
+  rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
+    puts "Failed to Login! Exiting"
+    exit
+  end
 
   puts "Logged in as #{user}!"
 end
