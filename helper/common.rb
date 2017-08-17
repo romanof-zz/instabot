@@ -27,6 +27,7 @@ def login user
     Selenium::WebDriver::Wait.new(timeout: 60).until { @driver.find_element id: "mainFeed" }
   rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
     puts "Failed to Login! Exiting"
+    driver.save_screenshot "screenshots/login_error_#{Time.now.to_i}.png"
     exit
   end
 
