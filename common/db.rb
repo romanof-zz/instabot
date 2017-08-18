@@ -15,12 +15,14 @@ def db
 end
 
 def get_public_non_engaged user, limit
+  order = (user == 'roman0f' ? "asc" : 'desc')
   db.query("select f.name, f.lang
             from followers as f
             left join engagement as e on e.follower = f.name and e.user = '#{user}'
             where e.id IS NULL and
             f.type = 'public' and
             f.status = 'typed'
+            order by f.name #{order}
             limit #{limit}")
 end
 
