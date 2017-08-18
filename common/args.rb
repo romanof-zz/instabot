@@ -5,7 +5,6 @@ def options
   if @hash_options.nil?
     @hash_options = {}
     OptionParser.new do |opts|
-      opts.banner = "Usage: insta_like_comment.rb [--username]"
       opts.on('-o [ARG]', '--operation [ARG]', "") do |v|
         @hash_options[:operation] = v
       end

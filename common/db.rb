@@ -14,7 +14,7 @@ def db
   @db
 end
 
-def get_public_non_engaged user, limit
+def public_non_engaged user, limit
   order = (user == 'roman0f' ? "asc" : 'desc')
   db.query("select f.name, f.lang
             from followers as f
@@ -26,8 +26,39 @@ def get_public_non_engaged user, limit
             limit #{limit}")
 end
 
+def private_requested user
+  db.query "select e.*, f.lang
+            from engagement as e
+            left join followers as f on e.follower = f.name
+            where e.type='pr.req' and e.user = '#{user}'"
+end
+
+def private_non_engaged user, limit
+  order = (user == 'roman0f' ? "asc" : 'desc')
+  db.query("select f.name, f.lang
+            from followers as f
+            left join engagement as e on e.follower = f.name and e.user = '#{user}'
+            where e.id IS NULL and
+            f.type = 'private' and
+            f.status = 'typed'
+            order by f.name #{order}
+            limit #{limit}")
+end
+
 def record_public_engagement user, name
   record_engagement user, name, 'pb.v1'
+end
+
+def record_request_engagement user, name
+  record_engagement user, name, 'pr.req'
+end
+
+def record_private_engagement user, name
+  db.query "update engagement
+            set type='pr.v1', time=NOW()
+            where user='#{user}' and
+                  follower='#{name}' and
+                  type='pr.req'"
 end
 
 def record_engagement user, name, type

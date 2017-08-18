@@ -5,6 +5,8 @@ require_relative 'scripts/settypes'
 require_relative 'scripts/likelatest'
 require_relative 'scripts/unfollow'
 require_relative 'scripts/publicengage'
+require_relative 'scripts/requestfollow'
+require_relative 'scripts/privateengage'
 
 case options[:operation].to_sym
 when :likelatest
@@ -17,6 +19,10 @@ when :unfollow
   unfollow options[:username]
 when :publicengage
   publicengage options[:username]
+when :requestfollow
+  requestfollow options[:username]
+when :privateengage
+  privateengage options[:username]
 else
   puts 'unknown operation'
 end
