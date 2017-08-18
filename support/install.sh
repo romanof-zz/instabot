@@ -8,13 +8,6 @@
 
 # Versions
 CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`
-SELENIUM_STANDALONE_VERSION=3.4.0
-SELENIUM_SUBDIR=$(echo "$SELENIUM_STANDALONE_VERSION" | cut -d"." -f-2)
-
-# Remove existing downloads and binaries so we can start from scratch.
-rm ~/google-chrome-stable_current_amd64.deb
-rm ~/chromedriver_linux64.zip
-sudo rm /usr/local/bin/chromedriver
 
 # Install dependencies.
 sudo apt-get update
@@ -32,3 +25,26 @@ unzip ~/chromedriver_linux64.zip -d ~/
 sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
 sudo chown root:root /usr/local/bin/chromedriver
 sudo chmod 0755 /usr/local/bin/chromedriver
+
+# install ruby
+\curl -sSL https://get.rvm.io | bash
+source /home/ubuntu/.rvm/scripts/rvm
+rvm install 2.3.3
+rvm use 2.3.3 --default
+
+# install project
+sudo apt-get install git
+ssh-keygen
+# add key to bitbucket
+git clone git clone git@bitbucket.org:romanof/instabot.git
+
+sudo apt-get install libmysqlclient-dev
+gem install bundler
+bundle install
+
+# start server
+support/startserver.sh
+
+# configure
+vi config.yml
+crontab -e
