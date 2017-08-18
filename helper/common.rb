@@ -104,7 +104,7 @@ def engage_with_user name, lang
     end
   end
   links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
-  links = links.first(3).shuffle.map! {|l| l[:link]}
+  links = links.first(5).shuffle.map! {|l| l[:link]}
 
   links.each do |link|
     puts link
