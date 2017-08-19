@@ -17,7 +17,7 @@ def unfollow user
   sleep 1
 
   followers = []
-  scroll_user_list(0, 0, followers_count) { |name|
+  scroll_user_list(0, 0, followers_count-1) { |name|
     incl = !followers.include?(name)
     if incl
       followers.push name
@@ -36,15 +36,20 @@ def unfollow user
   sleep 1
 
   following = []
-  scroll_user_list(0, 0, following_count) { |name|
+  scroll_user_list(0, 0, following_count-1) { |name|
     incl = !following.include?(name)
     following.push name if incl
     incl
   }
 
   removelist = []
-  following.each { |name| removelist.push name if !followers.include?(name) }
+  following.each do |name|
+    removelist.push name if !followers.include?(name) && unfollowable?(user, name)
+  end
   removelist.reverse!
+
+  puts removelist
+  exit
 
   removelist.first(15).each do |name|
     puts name

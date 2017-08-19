@@ -14,6 +14,13 @@ def db
   @db
 end
 
+def unfollowable? user, name
+  record = db.query("select * from engagement where user='#{user}' and follower='#{name}'").first
+  record.nil? ||
+  (!["pr.req","orig.fl"].include?(record['type']) &&
+   record['time'] < (Time.now - 3600*24*2))
+end
+
 def public_non_engaged user, limit
   order = (user == 'roman0f' ? "asc" : 'desc')
   db.query("select f.name, f.lang

@@ -30,11 +30,11 @@ def requestfollow user
       Selenium::WebDriver::Wait.new(timeout: 10).until do
         follow = driver.find_element(xpath: '//button[text()="Follow"]')
       end
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Net::ReadTimeout
+    rescue Selenium::WebDriver::Error::TimeOutError
       begin
         element = driver.find_element(xpath: "//div/h2")
         update_follower_type(name, 'deleted') if element.text() == "Sorry, this page isn't available."
-      rescue Selenium::WebDriver::Error::NoSuchElementError, Net::ReadTimeout
+      rescue Selenium::WebDriver::Error::TimeOutError
       end
     end
 
