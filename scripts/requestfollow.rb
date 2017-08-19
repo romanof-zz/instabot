@@ -22,10 +22,20 @@ def requestfollow user
   private_non_engaged(user, 5).each do |record|
     name = record['name']
     puts name
+
     driver.navigate.to "https://www.instagram.com/#{name}/"
+
     follow = nil
-    Selenium::WebDriver::Wait.new(timeout: 10).until do
-      follow = driver.find_element(xpath: '//button[text()="Follow"]')
+    begin
+      Selenium::WebDriver::Wait.new(timeout: 10).until do
+        follow = driver.find_element(xpath: '//button[text()="Follow"]')
+      end
+    rescue Selenium::WebDriver::Error::NoSuchElementError, , Net::ReadTimeout
+      begin
+        element = driver.find_element(xpath: "//div/h2")
+        update_follower_type(name, 'deleted') if element.text() == "Sorry, this page isn't available."
+      rescue Selenium::WebDriver::Error::NoSuchElementError, Net::ReadTimeout
+      end
     end
 
     unless follow.nil?
