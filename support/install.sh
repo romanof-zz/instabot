@@ -36,7 +36,7 @@ rvm use 2.3.3 --default
 sudo apt-get install git
 ssh-keygen
 # add key to bitbucket
-git clone git clone git@bitbucket.org:romanof/instabot.git
+git clone git@bitbucket.org:romanof/instabot.git
 
 sudo apt-get install libmysqlclient-dev
 gem install bundler

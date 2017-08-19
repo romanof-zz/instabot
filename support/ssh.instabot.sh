@@ -1,1 +1,1 @@
-ssh -i romanof.pem ubuntu@ec2-34-226-209-201.compute-1.amazonaws.com
+ssh -i romanof.pem ubuntu@ec2-52-204-115-4.compute-1.amazonaws.com
