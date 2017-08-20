@@ -17,14 +17,18 @@ def unfollow user
   sleep 1
 
   followers = []
-  scroll_user_list(0, 0, followers_count-1) { |name|
-    incl = !followers.include?(name)
-    if incl
-      followers.push name
-      record_engagement(user, name, "orig.fl") unless get_engagement(user, name).count > 0
+  # scroll_user_list(0, 0, followers_count-1) { |name|
+  while followers.count != followers_count do
+    sleep 300
+    driver.find_elements(xpath: "//ul/li/div/div/a").each do |e|
+      name = ref_to_name e.attribute("href")
+      if !followers.include?(name)
+        followers.push name
+        record_engagement(user, name, "orig.fl") unless get_engagement(user, name).count > 0
+      end
     end
-    incl
-  }
+    puts "followers count: #{followers.count} - limit: #{followers_count}"
+  end
 
   driver.find_element(xpath: "//button[text()=\"Close\"]").click
   Selenium::WebDriver::Wait.new(timeout: 20).until {
@@ -36,11 +40,14 @@ def unfollow user
   sleep 1
 
   following = []
-  scroll_user_list(0, 0, following_count-1) { |name|
-    incl = !following.include?(name)
-    following.push name if incl
-    incl
-  }
+  while following.count != following_count do
+    sleep 300
+    driver.find_elements(xpath: "//ul/li/div/div/a").each do |e|
+      name = ref_to_name e.attribute("href")
+      following.push name if !following.include?(name)
+    end
+    puts "following count: #{followers.count} - limit: #{followers_count}"
+  end
 
   removelist = []
   following.each do |name|
