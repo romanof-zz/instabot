@@ -61,8 +61,8 @@ def scroll_user_list count, error, limit, &block
 
   if count == original_count
     error += 1
-    sleep error
-    exit if error > 15
+    sleep 2 ** error
+    exit if error > 10
   else
     error = 0
   end
