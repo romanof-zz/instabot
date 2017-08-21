@@ -91,8 +91,10 @@ def create_new_follower follower, source, category, lang, ignore_dups=true
   rescue Mysql2::Error
     raise if !ignore_dups
     record = db.query("select source from followers where name='#{follower}'").first
-    new_source = record['source'] + "|#{source}"
-    db.query("update followers set source='#{new_source}' where name='#{follower}'")
+    unless record['source'].include? source
+      new_source = record['source'] + "|#{source}"
+      db.query("update followers set source='#{new_source}' where name='#{follower}'")
+    end
     false
   end
 end
