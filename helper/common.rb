@@ -144,8 +144,8 @@ def engage_with_user name, lang
 end
 
 def fail error
-  driver.save_screenshot "screenshots/#{error}_#{Time.now.to_i}.png"
-  puts error
+  driver.save_screenshot "screenshots/#{error}_#{Time.now.to_i}.png" if driver
+  puts "error: #{error}"
   exit
 end
 
