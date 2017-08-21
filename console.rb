@@ -8,6 +8,10 @@ require_relative 'scripts/publicengage'
 require_relative 'scripts/requestfollow'
 require_relative 'scripts/privateengage'
 
+puts "\n>> start"
+puts ">> operation: #{options.inspect}"
+puts ">> time: #{Time.now}\n"
+
 case options[:operation].to_sym
 when :likelatest
   likelatest options[:username]
@@ -26,3 +30,7 @@ when :privateengage
 else
   puts 'unknown operation'
 end
+
+puts "\n>> end"
+puts ">> operation: #{options.inspect}"
+puts ">> time: #{Time.now}\n"

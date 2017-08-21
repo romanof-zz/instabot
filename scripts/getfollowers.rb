@@ -9,8 +9,7 @@ def getfollowers user, source_account
   begin
     driver.navigate.to "https://www.instagram.com/#{source_account}/"
   rescue Net::ReadTimeout
-    puts "no internet"
-    exit
+    fail "getfollowers_accpage"
   end
 
   Selenium::WebDriver::Wait.new(timeout: 20).until { driver.find_element(xpath: "//a[@href=\"/#{source_account}/followers/\"]") }

@@ -10,8 +10,7 @@ def login user
   begin
     driver.navigate.to "https://www.instagram.com/accounts/login/"
   rescue Net::ReadTimeout
-    puts "no internet"
-    exit
+    fail "login_internet"
   end
 
   Selenium::WebDriver::Wait.new(timeout: 10).until do
@@ -29,10 +28,8 @@ def login user
 
   begin
     Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element xpath: "//main/section" }
-  rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
-    puts "Failed to Login! Exiting"
-    driver.save_screenshot "screenshots/login_error_#{Time.now.to_i}.png"
-    exit
+  rescue  Net::ReadTimeout
+    fail "login_mainscreen"
   end
 
   puts "Logged in as #{user}!"
@@ -144,6 +141,12 @@ def engage_with_user name, lang
   end
 
   true
+end
+
+def fail error
+  driver.save_screenshot "screenshots/#{error}_#{Time.now.to_i}.png"
+  puts error
+  exit
 end
 
 def comment lang, num
