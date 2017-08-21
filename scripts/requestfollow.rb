@@ -9,7 +9,8 @@ def requestfollow user
   begin
     driver.navigate.to "https://www.instagram.com/#{user}/"
   rescue Net::ReadTimeout
-    exit "no internet"
+    puts "no internet"
+    exit
   end
 
   Selenium::WebDriver::Wait.new(timeout: 20).until {

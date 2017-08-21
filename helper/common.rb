@@ -10,7 +10,8 @@ def login user
   begin
     driver.navigate.to "https://www.instagram.com/accounts/login/"
   rescue Net::ReadTimeout
-    exit "no internet"
+    puts "no internet"
+    exit
   end
 
   Selenium::WebDriver::Wait.new(timeout: 10).until do
