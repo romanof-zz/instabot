@@ -13,7 +13,7 @@ def login user
     fail "login_internet"
   end
 
-  Selenium::WebDriver::Wait.new(timeout: 10).until do
+  Selenium::WebDriver::Wait.new(timeout: 5).until do
     driver.find_element(xpath: "//form")
   end
 
@@ -27,7 +27,7 @@ def login user
   submit.submit
 
   begin
-    Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element xpath: "//main/section" }
+    Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element xpath: "//main/section" }
   rescue  Net::ReadTimeout
     fail "login_mainscreen"
   end
@@ -42,7 +42,7 @@ def scroll_user_list count, error, limit, &block
 
   begin
     new_list = nil
-    Selenium::WebDriver::Wait.new(timeout: 20).until do
+    Selenium::WebDriver::Wait.new(timeout: 5).until do
       new_list = driver.find_elements(xpath: "//ul/li[position() >= last()-20]/div/div/a")
     end
 
@@ -87,7 +87,7 @@ def engage_with_user name, lang
   end
 
   photos = nil
-  Selenium::WebDriver::Wait.new(timeout: 20).until {
+  Selenium::WebDriver::Wait.new(timeout: 5).until {
     photos = driver.find_elements(xpath: "//main//article/div//a[//img]")
   }
 
@@ -96,14 +96,14 @@ def engage_with_user name, lang
     photo.click
     likes_num = 0
     begin
-      Selenium::WebDriver::Wait.new(timeout: 2).until {
+      Selenium::WebDriver::Wait.new(timeout: 5).until {
         likes_num = driver.find_element(xpath: "//section/div/span/span").text.to_i
       }
     rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
     end
     links << { :num => likes_num, :link => photo.attribute("href").to_s }
     begin
-      Selenium::WebDriver::Wait.new(timeout: 2).until {
+      Selenium::WebDriver::Wait.new(timeout: 5).until {
         driver.find_element(xpath: "//button[text()=\"Close\"]").click
       }
     rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
@@ -120,7 +120,7 @@ def engage_with_user name, lang
       next
     end
 
-    Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element(xpath: "//main//article//img") }
+    Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//main//article//img") }
 
     begin
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
@@ -130,7 +130,7 @@ def engage_with_user name, lang
 
   text = nil
   begin
-    Selenium::WebDriver::Wait.new(timeout: 60).until {
+    Selenium::WebDriver::Wait.new(timeout: 5).until {
       text = driver.find_element(xpath: "//form/textarea")
     }
   rescue  Selenium::WebDriver::Error::TimeOutError

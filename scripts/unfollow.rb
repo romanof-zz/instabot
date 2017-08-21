@@ -8,7 +8,7 @@ def unfollow user
 
   driver.navigate.to "https://www.instagram.com/#{user}/"
 
-  Selenium::WebDriver::Wait.new(timeout: 20).until {
+  Selenium::WebDriver::Wait.new(timeout: 5).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
   followers_count = driver.find_element(xpath: "//a[contains(@href, 'followers')]/span")
@@ -27,7 +27,7 @@ def unfollow user
   }
 
   driver.find_element(xpath: "//button[text()=\"Close\"]").click
-  Selenium::WebDriver::Wait.new(timeout: 20).until {
+  Selenium::WebDriver::Wait.new(timeout: 5).until {
     driver.find_element(xpath: "//main//header//button//img")
   }
   following_count = driver.find_element(xpath: "//a[contains(@href, 'following')]/span")

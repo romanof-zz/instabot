@@ -8,7 +8,7 @@ def privateengage user
 
   count = 0
   private_requested(user).each do |record|
-    break if count == 5
+    break if count == 2
     result = engage_with_user record['follower'], record["lang"]
     if result
       record_private_engagement user, record['follower']

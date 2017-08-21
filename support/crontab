@@ -1,6 +1,1 @@
-8 * * * *    cd /home/ubuntu/instabot && sh rexec.sh --operation=settypes >> app.log 2>&1
-17,47 * * * * cd /home/ubuntu/instabot && sh rexec.sh --operation=likelatest --asUser=roman0f >> app.log 2>&1
-13,38 * * * * cd /home/ubuntu/instabot && sh rexec.sh --operation=likelatest --asUser=yulyassana >> app.log 2>&1
-0,30 * * * *  cd /home/ubuntu/instabot && sh pubengage.sh
-20,50 * * * * cd /home/ubuntu/instabot && sh privengage.sh
-42 * * * *    cd /home/ubuntu/instabot && sh requestfollow.sh
+*/25 * * * *    cd /home/ubuntu/instabot && sh runner.sh >> app.log 2>&1

@@ -13,7 +13,7 @@ def requestfollow user
     exit
   end
 
-  Selenium::WebDriver::Wait.new(timeout: 20).until {
+  Selenium::WebDriver::Wait.new(timeout: 5).until {
     driver.find_element xpath: "//main//header//button//img"
   }
 
@@ -37,7 +37,7 @@ def requestfollow user
 
     follow = nil
     begin
-      Selenium::WebDriver::Wait.new(timeout: 10).until do
+      Selenium::WebDriver::Wait.new(timeout: 5).until do
         follow = driver.find_element(xpath: '//button[text()="Follow"]')
       end
     rescue Selenium::WebDriver::Error::TimeOutError

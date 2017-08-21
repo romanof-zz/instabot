@@ -12,7 +12,7 @@ def set_follower_types
       next
     end
 
-    Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element(xpath: "//footer//nav") }
+    Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//footer//nav") }
 
     type = "public"
     begin
