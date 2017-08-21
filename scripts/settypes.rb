@@ -5,7 +5,13 @@ require_relative "../common/db"
 def set_follower_types
   get_untyped_followers(100).each do |follower|
     name = follower["name"]
-    driver.navigate.to "https://www.instagram.com/#{name}/"
+
+    begin
+      driver.navigate.to "https://www.instagram.com/#{name}/"
+    rescue Net::ReadTimeout
+      next
+    end
+
     Selenium::WebDriver::Wait.new(timeout: 60).until { driver.find_element(xpath: "//footer//nav") }
 
     type = "public"

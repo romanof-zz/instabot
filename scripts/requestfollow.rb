@@ -6,7 +6,12 @@ require_relative "../helper/common"
 def requestfollow user
   login user
 
-  driver.navigate.to "https://www.instagram.com/#{user}/"
+  begin
+    driver.navigate.to "https://www.instagram.com/#{user}/"
+  rescue Net::ReadTimeout
+    exit "no internet"
+  end
+
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element xpath: "//main//header//button//img"
   }
@@ -23,7 +28,11 @@ def requestfollow user
     name = record['name']
     puts name
 
-    driver.navigate.to "https://www.instagram.com/#{name}/"
+    begin
+      driver.navigate.to "https://www.instagram.com/#{name}/"
+    rescue Net::ReadTimeout
+      next
+    end
 
     follow = nil
     begin

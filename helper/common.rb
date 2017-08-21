@@ -7,7 +7,11 @@ def ref_to_name ref
 end
 
 def login user
-  driver.navigate.to "https://www.instagram.com/accounts/login/"
+  begin
+    driver.navigate.to "https://www.instagram.com/accounts/login/"
+  rescue Net::ReadTimeout
+    exit "no internet"
+  end
 
   Selenium::WebDriver::Wait.new(timeout: 10).until do
     driver.find_element(xpath: "//form")
@@ -72,7 +76,11 @@ def scroll_user_list count, error, limit, &block
 end
 
 def engage_with_user name, lang
-  driver.navigate.to "https://www.instagram.com/#{name}/"
+  begin
+    driver.navigate.to "https://www.instagram.com/#{name}/"
+  rescue Net::ReadTimeout
+    return false
+  end
 
   begin
     element = driver.find_element(xpath: "//main/article/div/h2")

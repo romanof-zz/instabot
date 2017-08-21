@@ -6,7 +6,11 @@ require_relative "../helper/common"
 def getfollowers user, source_account
   login user
 
-  driver.navigate.to "https://www.instagram.com/#{source_account}/"
+  begin
+    driver.navigate.to "https://www.instagram.com/#{source_account}/"
+  rescue Net::ReadTimeout
+    exit "no internet"
+  end
 
   Selenium::WebDriver::Wait.new(timeout: 20).until { driver.find_element(xpath: "//a[@href=\"/#{source_account}/followers/\"]") }
   driver.find_element(xpath: "//a[@href=\"/#{source_account}/followers/\"]").click

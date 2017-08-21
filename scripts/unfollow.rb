@@ -6,7 +6,11 @@ require_relative "../helper/common"
 def unfollow user
   login user
 
-  driver.navigate.to "https://www.instagram.com/#{user}/"
+  begin
+    driver.navigate.to "https://www.instagram.com/#{user}/"
+  rescue Net::ReadTimeout
+    exit "no internet"
+  end
 
   Selenium::WebDriver::Wait.new(timeout: 20).until {
     driver.find_element(xpath: "//main//header//button//img")
