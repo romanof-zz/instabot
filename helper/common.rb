@@ -28,7 +28,7 @@ def login user
 
   begin
     Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element xpath: "//main/section" }
-  rescue  Net::ReadTimeout
+  rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
     fail "login_mainscreen"
   end
 
