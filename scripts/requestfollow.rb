@@ -25,7 +25,7 @@ def requestfollow user
   puts "followers: #{followers_count}, following: #{following_count}"
   exit if (followers_count - following_count) < 100 && following_count < 500
 
-  private_non_engaged(user, 5).each do |record|
+  private_non_engaged(user, 2).each do |record|
     name = record['name']
     puts name
 

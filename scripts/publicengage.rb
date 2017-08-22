@@ -6,7 +6,7 @@ require_relative "../helper/common"
 def publicengage user
   login user
 
-  public_non_engaged(user, 3).each do |record|
+  public_non_engaged(user, 5).each do |record|
     next if !engage_with_user record["name"], record["lang"]
     record_public_engagement user, record["name"]
   end

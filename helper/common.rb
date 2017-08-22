@@ -77,6 +77,7 @@ def engage_with_user name, lang
   begin
     driver.navigate.to "https://www.instagram.com/#{name}/"
   rescue Net::ReadTimeout
+    fail "engage_#{name}"
     return false
   end
 

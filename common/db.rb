@@ -60,9 +60,9 @@ def record_request_engagement user, name
   record_engagement user, name, 'pr.req'
 end
 
-def record_private_engagement user, name
+def update_private_engagement_type user, name, type
   db.query "update engagement
-            set type='pr.v1', time=NOW()
+            set type='#{type}', time=NOW()
             where user='#{user}' and
                   follower='#{name}' and
                   type='pr.req'"
