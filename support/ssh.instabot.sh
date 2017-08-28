@@ -1,1 +1,1 @@
-ssh -i ~/mine/instabot/support/romanof.pem ubuntu@ec2-34-229-222-183.compute-1.amazonaws.com
+ssh -i ~/mine/instabot/support/romanof.pem ubuntu@ec2-34-234-3-221.compute-1.amazonaws.com
