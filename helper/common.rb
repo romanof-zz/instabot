@@ -74,7 +74,6 @@ def scroll_user_list count, error, limit, &block
 end
 
 def engage_with_user name, lang
-  puts "engaging user: #{name}"
   begin
     driver.navigate.to "https://www.instagram.com/#{name}/"
   rescue Net::ReadTimeout
@@ -84,10 +83,7 @@ def engage_with_user name, lang
 
   begin
     element = driver.find_element(xpath: "//main/article/div/h2")
-    if element.text() == "This Account is Private"
-      puts "account is still private"
-      return false
-    end
+    return false if element.text() == "This Account is Private"
   rescue Selenium::WebDriver::Error::NoSuchElementError
   end
 
@@ -97,7 +93,7 @@ def engage_with_user name, lang
   }
 
   links = []
-  puts "photo count: #{photos.count}"
+  puts "engaging user: #{name} with photo count: #{photos.count}"
   photos.first(9).each do |photo|
     photo.click
     likes_num = 0
