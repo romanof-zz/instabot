@@ -74,6 +74,7 @@ def scroll_user_list count, error, limit, &block
 end
 
 def engage_with_user name, lang
+  puts "engaging user: #{name}"
   begin
     driver.navigate.to "https://www.instagram.com/#{name}/"
   rescue Net::ReadTimeout
@@ -83,16 +84,20 @@ def engage_with_user name, lang
 
   begin
     element = driver.find_element(xpath: "//main/article/div/h2")
-    return false if element.text() == "This Account is Private"
+    if element.text() == "This Account is Private"
+      puts "account is still private"
+      return false
+    end
   rescue Selenium::WebDriver::Error::NoSuchElementError
   end
 
   photos = nil
-  Selenium::WebDriver::Wait.new(timeout: 5).until {
+  Selenium::WebDriver::Wait.new(timeout: 60).until {
     photos = driver.find_elements(xpath: "//main//article/div//a[//img]")
   }
 
   links = []
+  puts "photo count: #{photos.count}"
   photos.first(9).each do |photo|
     photo.click
     likes_num = 0
@@ -118,6 +123,7 @@ def engage_with_user name, lang
     begin
       driver.navigate.to link
     rescue Net::ReadTimeout
+      puts "skipped link"
       next
     end
 
@@ -126,6 +132,7 @@ def engage_with_user name, lang
     begin
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
     rescue Selenium::WebDriver::Error::NoSuchElementError
+      puts "skipped like"
     end
   end
 
