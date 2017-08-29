@@ -8,7 +8,7 @@ def privateengage user
 
   count = 0
   private_requested(user).each do |record|
-    result = engage_with_user record['follower'], record["lang"]
+    result = engage_with_user record['follower'], record["lang"], 'private'
     if result
       update_private_engagement_type user, record['follower'], 'pr.v1'
     else

@@ -73,7 +73,7 @@ def scroll_user_list count, error, limit, &block
   scroll_user_list count, error, limit, &block
 end
 
-def engage_with_user name, lang
+def engage_with_user name, lang, expected_type
   begin
     driver.navigate.to "https://www.instagram.com/#{name}/"
   rescue Net::ReadTimeout
@@ -83,7 +83,10 @@ def engage_with_user name, lang
 
   begin
     element = driver.find_element(xpath: "//main/article/div/h2")
-    return false if element.text() == "This Account is Private"
+    if element.text() == "This Account is Private"
+      update_follower_type name, 'private' if expected_type == 'public'
+      return false
+    end
   rescue Selenium::WebDriver::Error::NoSuchElementError
   end
 
