@@ -98,24 +98,19 @@ def engage_with_user name, lang, expected_type
   links = []
   puts "engaging user: #{name} with photo count: #{photos.count}"
   photos.first(9).each do |photo|
-    photo.click
     likes_num = 0
+    driver.action.move_to(photo).perform
     begin
-      Selenium::WebDriver::Wait.new(timeout: 5).until {
-        likes_num = driver.find_element(xpath: "//section/div/span/span").text.to_i
+      Selenium::WebDriver::Wait.new(timeout: 1).until {
+        likes_num = driver.find_element(xpath: "//main//article/div//a//ul/li[1]/span[1]")
+          .text.delete(',').to_i
       }
-    rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
+    rescue Selenium::WebDriver::Error::TimeOutError
     end
     links << { :num => likes_num, :link => photo.attribute("href").to_s }
-    begin
-      Selenium::WebDriver::Wait.new(timeout: 5).until {
-        driver.find_element(xpath: "//button[text()=\"Close\"]").click
-      }
-    rescue Selenium::WebDriver::Error::TimeOutError, Net::ReadTimeout
-    end
   end
   links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
-  links = links.first(5).shuffle.map! {|l| l[:link]}
+  links = links.first(3).shuffle.map! {|l| l[:link]}
 
   links.each do |link|
     puts link
