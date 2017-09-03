@@ -2,10 +2,13 @@
 require "aws-sdk-ec2"
 require_relative 'common/config'
 
+puts "\n>> start maintenance at #{Time.now}\n"
+
 ec2 = Aws::EC2::Client.new(
   region: config['aws']['region'],
   credentials: Aws::Credentials.new(config['aws']['access'], config['aws']['secret']))
 
+puts "ip swap"
 oldip = ec2.describe_addresses.addresses.first
 puts "old ip: #{oldip.public_ip}"
 
@@ -15,3 +18,5 @@ puts "new ip: #{newip.public_ip}"
 ec2.associate_address instance_id: config['aws']['instance_id'], public_ip: newip.public_ip
 
 ec2.release_address allocation_id: oldip.allocation_id
+
+puts "\n>> end maintenance at #{Time.now}\n"
