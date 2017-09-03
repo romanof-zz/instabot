@@ -97,6 +97,8 @@ def engage_with_user name, lang, expected_type
 
   links = []
   puts "engaging user: #{name} with photo count: #{photos.count}"
+  return true unless photos.count
+
   photos.first(9).each do |photo|
     likes_num = 0
     driver.action.move_to(photo).perform
