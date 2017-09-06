@@ -37,6 +37,7 @@ end
 
 def scroll_user_list count, error, limit, &block
   return if !limit.nil? && count.to_i >= limit.to_i
+  sleep 300 if (count.to_i % 500 == 0) && count.to_i != 0
 
   original_count = count
 
