@@ -16,7 +16,7 @@ def privateengage user
         driver.find_element(xpath: "//header//button[text()='Follow']")
         update_private_engagement_type user, record['follower'], 'pr.fld'
       rescue Selenium::WebDriver::Error::NoSuchElementError
-        if record['time'] < (Time.now - 3600*24*3)
+        if record['time'] < (Time.now - 3600*24)
           begin
             driver.find_element(xpath: "//header//button[text()='Requested']").click
             update_private_engagement_type user, record['follower'], 'pr.fld'
