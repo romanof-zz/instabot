@@ -2,28 +2,30 @@
 require_relative "../common/selenium"
 require_relative "../helper/common"
 
-def likelatest user
+def likelatest user, tag
   login user
+  driver.navigate.to "https://www.instagram.com/explore/tags/#{tag}/"
+  sleep 3
 
-  driver.find_elements(xpath: '//article').each_with_index do |post, i|
-    post.location_once_scrolled_into_view
+  index = 0
+  prev = nil
+  driver.find_elements(xpath: '//article//a//img').each do |photo|
+    driver.action.click_and_hold(prev).move_to(photo).release.perform unless prev.nil?
+    next if index < 9 && index > 20
 
-    header_link = nil
-    Selenium::WebDriver::Wait.new(timeout: 5).until do
-      header_link = driver.find_element(xpath: "//article[#{i+1}]/header//a")
-    end
-
-    follower = ref_to_name header_link.attribute("href")
-    print "#{i}. #{follower} - "
-    next if follower == user
+    photo.click
+    sleep 2
 
     begin
-      like = driver.find_element(xpath: "//article[#{i+1}]//span[contains(@class, \"coreSpriteHeartOpen\")]")
-      like.click
+      driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
       puts "Liked"
     rescue Selenium::WebDriver::Error::NoSuchElementError
       puts "Skipped"
     end
+
+    driver.find_element(xpath: "//button[contains(text(),'Close')]").click
+    prev = photo
+    index+=1
   end
 
   driver.close

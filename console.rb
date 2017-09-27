@@ -14,7 +14,7 @@ puts ">> time: #{Time.now}\n"
 
 case options[:operation].to_sym
 when :likelatest
-  likelatest options[:username]
+  likelatest options[:username], options[:tag]
 when :getfollowers
   getfollowers options[:username], options[:source_account]
 when :settypes
