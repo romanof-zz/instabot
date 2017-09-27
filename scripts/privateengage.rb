@@ -12,7 +12,11 @@ def privateengage user
 
     if result
       update_private_engagement_type user, record['follower'], 'pr.v1'
-      driver.find_element(xpath: "//header//button[text()='Following']").click
+      begin
+        driver.find_element(xpath: "//header//button[text()='Following']").click
+      rescue Selenium::WebDriver::Error::NoSuchElementError
+        update_private_engagement_type user, record['follower'], 'pb.v1'
+      end
     else
       begin
         driver.find_element(xpath: "//header//button[text()='Follow']")
