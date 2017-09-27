@@ -22,7 +22,7 @@ def privateengage user
           begin
             driver.find_element(xpath: "//header//button[text()='Requested']").click
             update_private_engagement_type user, record['follower'], 'pr.fld'
-          rescue Selenium::WebDriver::Error::NoSuchElementError
+          rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::StaleElementReferenceError
           end
         end
       end
