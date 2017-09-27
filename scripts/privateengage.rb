@@ -8,6 +8,8 @@ def privateengage user
 
   private_requested(user).each do |record|
     result = engage_with_user record['follower'], record["lang"], 'private'
+    puts "#{record['follower']} - #{result}"
+
     if result
       update_private_engagement_type user, record['follower'], 'pr.v1'
       driver.find_element(xpath: "//header//button[text()='Following']").click
