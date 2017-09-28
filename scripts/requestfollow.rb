@@ -31,7 +31,7 @@ def requestfollow user
     end
 
     unless follow.nil?
-      follow.click
+      driver.find_element(xpath: '//button[text()="Follow"]').click
       record_request_engagement user, record['name']
       puts 'requested'
     end
