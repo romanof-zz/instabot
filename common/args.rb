@@ -14,9 +14,6 @@ def options
       opts.on('-s [ARG]', '--sourceAccount [ARG]', "") do |v|
         @hash_options[:source_account] = v
       end
-      opts.on('-t [ARG]', '--tag [ARG]', "") do |v|
-        @hash_options[:tag] = v
-      end
       opts.on('-h', '--help', 'Display this help') do
         puts opts
         exit
