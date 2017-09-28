@@ -32,7 +32,7 @@ def requestfollow user
 
     unless follow.nil?
       follow.click
-      record_request_engagement user, name
+      record_request_engagement user, record['name']
       puts 'requested'
     end
   end

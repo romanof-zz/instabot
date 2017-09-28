@@ -4,7 +4,9 @@ require_relative "../helper/common"
 
 def likelatest user
   login user
-  driver.navigate.to "https://www.instagram.com/explore/tags/#{tag}/"
+  t = tag
+  puts t
+  driver.navigate.to "https://www.instagram.com/explore/tags/#{t}/"
   sleep 3
 
   element = driver.find_elements(xpath: '//article//a').each_with_index do |photo, index|
@@ -17,7 +19,7 @@ def likelatest user
       sleep 1
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
       puts "Liked"
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::UnknownError
+    rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::ElementNotVisibleError
       puts "Skipped"
       next
     end
