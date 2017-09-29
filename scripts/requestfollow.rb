@@ -24,8 +24,10 @@ def requestfollow user
     rescue Selenium::WebDriver::Error::TimeOutError
       begin
         element = driver.find_element(xpath: "//div/h2")
-        update_follower_type(record['name'], 'deleted') if element.text() == "Sorry, this page isn't available."
-        puts 'deleted'
+        if element.text() == "Sorry, this page isn't available."
+          update_follower_type(record['name'], 'deleted')
+          puts 'deleted'
+        end
       rescue Selenium::WebDriver::Error::TimeOutError
       end
     end
