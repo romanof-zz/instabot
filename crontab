@@ -1,1 +1,1 @@
-0 0 * * *    cd /home/ubuntu/instabot && sh maintenance.sh >> maintenance.log 2>&1
+0 */6 * * *    cd /home/ubuntu/instabot && sh maintenance.sh >> maintenance.log 2>&1
