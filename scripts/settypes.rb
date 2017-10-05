@@ -3,7 +3,7 @@ require_relative "../common/selenium"
 require_relative "../common/db"
 
 def set_follower_types
-  get_untyped_followers(10).each do |follower|
+  get_untyped_followers(100).each do |follower|
     name = follower["name"]
 
     begin
