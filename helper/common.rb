@@ -127,6 +127,7 @@ def engage_with_user name, lang, expected_type
     Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//main//article//img") }
 
     begin
+      sleep 2
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
     rescue Selenium::WebDriver::Error::NoSuchElementError
       puts "skipped like"

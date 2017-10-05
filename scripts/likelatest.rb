@@ -14,9 +14,9 @@ def likelatest user
 
     begin
       driver.execute_script("arguments[0].scrollIntoView(true);", photo)
-      sleep 1
+      sleep 2
       photo.click
-      sleep 1
+      sleep 2
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
       puts "Liked"
     rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::ElementNotVisibleError
