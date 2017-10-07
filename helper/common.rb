@@ -133,10 +133,16 @@ def engage_with_user name, lang, expected_type
 end
 
 def like link
-  puts link
   driver.navigate.to link
-  Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//main//article//img") }
-  driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
+  begin
+    Selenium::WebDriver::Wait.new(timeout: 5).until {
+      photo = driver.find_element(xpath: "//main//article//img")
+      driver.action.double_click(photo).perform
+    }
+    puts "#{link} - liked"
+  rescue Selenium::WebDriver::Error::TimeOutError
+    puts "#{link} - skipped"
+  end
 end
 
 def fail error
