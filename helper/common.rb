@@ -135,12 +135,9 @@ end
 def like link
   driver.navigate.to link
   begin
-    Selenium::WebDriver::Wait.new(timeout: 5).until {
-      photo = driver.find_element(xpath: "//main//article//img")
-      driver.action.double_click(photo).perform
-    }
+    driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
     puts "#{link} - liked"
-  rescue Selenium::WebDriver::Error::TimeOutError
+  rescue Selenium::WebDriver::Error::NoSuchElementError
     puts "#{link} - skipped"
   end
 end
