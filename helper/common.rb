@@ -128,7 +128,7 @@ def engage_with_user name, lang, expected_type
 
     begin
       sleep 2
-      driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
+      driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
     rescue Selenium::WebDriver::Error::NoSuchElementError
       puts "skipped like"
     end

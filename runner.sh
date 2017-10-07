@@ -8,11 +8,11 @@ export DISPLAY=:0
 # export RUBY_FREE_MIN=100000
 # export RUBY_GC_HEAP_FREE_SLOTS=100000
 
-ruby console.rb --operation=settypes
-ruby console.rb --operation=likelatest --asUser=roman0f
-ruby console.rb --operation=privateengage --asUser=roman0f
-ruby console.rb --operation=publicengage --asUser=roman0f
-ruby console.rb --operation=requestfollow --asUser=roman0f
+bundle exec ruby console.rb --operation=settypes
+bundle exec ruby console.rb --operation=likelatest --asUser=roman0f
+bundle exec ruby console.rb --operation=privateengage --asUser=roman0f
+bundle exec ruby console.rb --operation=publicengage --asUser=roman0f
+bundle exec ruby console.rb --operation=requestfollow --asUser=roman0f
 
 sleep 10m
 sh runner.sh >> app.log 2>&1

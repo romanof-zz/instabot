@@ -40,7 +40,7 @@ git clone git@bitbucket.org:romanof/instabot.git
 
 sudo apt-get install libmysqlclient-dev
 gem install bundler
-bundle install
+bundle install --path=vendor/bundle
 
 # start server
 Xvfb :0 -ac -screen 0 1024x768x24 &
