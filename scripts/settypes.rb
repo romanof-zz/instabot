@@ -16,7 +16,7 @@ def set_follower_types
 
     type = "public"
     begin
-      element = driver.find_element(xpath: "//main/article/div/h2")
+      element = driver.find_element(xpath: "//main/article/div/div/h2")
       type = "private" if element.text() == "This Account is Private"
     rescue Selenium::WebDriver::Error::NoSuchElementError
       begin

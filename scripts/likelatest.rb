@@ -18,9 +18,9 @@ def likelatest user
       photo.click
       sleep 2
       driver.find_element(xpath: "//article//span[contains(@class, \"coreSpriteHeartOpen\")]").click
-      puts "Liked"
+      puts "#{driver.current_url} - Liked"
     rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::ElementNotVisibleError
-      puts "Skipped"
+      puts "#{driver.current_url} - Skipped"
       next
     end
 

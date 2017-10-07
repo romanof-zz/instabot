@@ -83,7 +83,7 @@ def engage_with_user name, lang, expected_type
   end
 
   begin
-    element = driver.find_element(xpath: "//main/article/div/h2")
+    element = driver.find_element(xpath: "//main/article/div/div/h2")
     if element.text() == "This Account is Private"
       update_follower_type name, 'private' if expected_type == 'public'
       return false
