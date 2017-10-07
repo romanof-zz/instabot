@@ -115,24 +115,7 @@ def engage_with_user name, lang, expected_type
   links.sort! { |ph1, ph2| ph2[:num] <=> ph1[:num] }
   links = links.first(3).shuffle.map! {|l| l[:link]}
 
-  links.each do |link|
-    puts link
-    begin
-      driver.navigate.to link
-    rescue Net::ReadTimeout
-      puts "skipped link"
-      next
-    end
-
-    Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//main//article//img") }
-
-    begin
-      sleep 2
-      driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
-    rescue Selenium::WebDriver::Error::NoSuchElementError
-      puts "skipped like"
-    end
-  end
+  links.each { |link| like link }
 
   text = nil
   begin
@@ -147,6 +130,13 @@ def engage_with_user name, lang, expected_type
   end
 
   true
+end
+
+def like link
+  puts link
+  driver.navigate.to link
+  Selenium::WebDriver::Wait.new(timeout: 5).until { driver.find_element(xpath: "//main//article//img") }
+  driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
 end
 
 def fail error

@@ -7,26 +7,10 @@ def likelatest user
   t = tag
   puts t
   driver.navigate.to "https://www.instagram.com/explore/tags/#{t}/"
-  sleep 3
 
-  element = driver.find_elements(xpath: '//article//a').each_with_index do |photo, index|
-    next if index < 9 || index > 20
-
-    begin
-      driver.execute_script("arguments[0].scrollIntoView(true);", photo)
-      sleep 2
-      photo.click
-      sleep 2
-      driver.action.double_click(driver.find_element(xpath: "//article/div//img")).perform
-
-      puts "#{driver.current_url} - Liked"
-    rescue Selenium::WebDriver::Error::NoSuchElementError, Selenium::WebDriver::Error::UnknownError, Selenium::WebDriver::Error::ElementNotVisibleError
-      puts "#{driver.current_url} - Skipped"
-      next
-    end
-
-    driver.find_element(xpath: "//button[contains(text(),'Close')]").click
-  end
+  element = driver.find_elements(xpath: '//article//a')[9..20].map { |photo|
+    photo.attribute("href").to_s
+  }.each { |link| like link }
 
   driver.close
 end
