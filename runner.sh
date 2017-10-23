@@ -9,6 +9,7 @@ export DISPLAY=:0
 # export RUBY_FREE_MIN=100000
 # export RUBY_GC_HEAP_FREE_SLOTS=100000
 
+bundle exec ruby ipswap.rb
 bundle exec ruby console.rb --operation=settypes
 bundle exec ruby console.rb --operation=likelatest --asUser=roman0f
 bundle exec ruby console.rb --operation=privateengage --asUser=roman0f
